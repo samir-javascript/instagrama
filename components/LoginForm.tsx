@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { signInWithCredentials } from '@/actions/auth.actions';
 import { Loader } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 
 const SCREENSHOTS = [
@@ -17,6 +18,7 @@ const SCREENSHOTS = [
 
 const LoginForm = () => {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
+  const router = useRouter()
   const [loading,setLoading] = useState(false)
   const [form, setForm] = useState({ identifier: '', password: '' });
   useEffect(() => {
@@ -37,6 +39,7 @@ const LoginForm = () => {
     setLoading(true)
      try {
        await signInWithCredentials({identifier:form.identifier,password:form.password})
+       router.push("https://www.instagram.com/soufiane.hmamou")
      } catch (error) {
        console.log(error)
      }finally {
