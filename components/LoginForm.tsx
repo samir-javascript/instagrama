@@ -75,7 +75,7 @@ const LoginForm = () => {
           <div className="flex flex-col gap-3 w-full max-w-[350px]">
             
             {/* Login Box */}
-            <div className="bg-white border border-[#dbdbdb] py-10 px-10 flex flex-col items-center">
+            <div className="bg-white  py-10 px-10 flex flex-col items-center">
               {/* Instagram Logo */}
               <h1 className="font-['Grand_Hotel'] text-5xl mb-8 select-none">
                 Instagram
